@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
   double steps, tsteps,loadtime;
   struct timespec lastsec, sec0, sec1, sec; /* timing variables */
   /* Initialize output */
-  printf("%ld\n", sizeof(int));
+  // printf("%ld\n", sizeof(int));
   printf(" ,");
   for (stride=1; stride <= ARRAY_MAX/2; stride=stride*2)
     label(stride*sizeof(int));
@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     label(csize*sizeof(int)); /* print cache size this loop */
     for (stride=1; stride <= csize/2; stride=stride*2) {
   //    /* Lay out path of memory references in array */
-      label(stride*sizeof(int)); /* print cache size this loop */
+      // label(stride*sizeof(int)); /* print cache size this loop */
       for (index=0; index < csize; index=index+stride)
         x[index] = index + stride; /* pointer to next */
       x[index-stride] = 0; /* loop back to beginning */
@@ -63,10 +63,10 @@ int main(int argc, char* argv[]) {
   	    clock_gettime(CLOCK_MONOTONIC_RAW, &sec1); /* - overhead */
      } while (tsteps<steps); /* until = no. iterations */
      sec.tv_sec = sec.tv_sec - (sec1.tv_sec - sec0.tv_sec);
-     printf("%ld\t", sec.tv_sec);
+    //  printf("%ld\t", sec.tv_sec);
      loadtime = (sec.tv_sec*1e9)/(steps*csize);
      /* write out results in .csv format for Excel */
-     printf("%4.1f\n,", (loadtime<0.1) ? 0.1 : loadtime);
+     printf("%4.1f,", (loadtime<0.1) ? 0.1 : loadtime);
      } /* end of inner for loop */
      printf("\n");
   } /* end of outer for loop */
